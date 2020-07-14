@@ -1,13 +1,13 @@
-package com.vasildedejski.fullstacktoolback;
+package com.vdedejski.ppmtool;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FullstackToolBackApplication {
+public class PpmtoolApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(FullstackToolBackApplication.class, args);
+        SpringApplication.run(PpmtoolApplication.class, args);
     }
 
 }

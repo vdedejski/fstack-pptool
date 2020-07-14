@@ -1,10 +1,10 @@
-package com.vasildedejski.fullstacktoolback;
+package com.vdedejski.ppmtool;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class FullstackToolBackApplicationTests {
+class PpmtoolApplicationTests {
 
     @Test
     void contextLoads() {
