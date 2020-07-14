@@ -1,6 +1,7 @@
 package com.vdedejski.ppmtool.web;
 
 import com.vdedejski.ppmtool.domain.Project;
+import com.vdedejski.ppmtool.services.MapValidationErrorService;
 import com.vdedejski.ppmtool.services.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -24,17 +24,15 @@ public class ProjectController {
     @Autowired
     private ProjectService projectService;
 
+    @Autowired
+    private MapValidationErrorService mapValidationErrorService;
+
     @PostMapping("")
     public ResponseEntity<?> createNewProject(@Valid @RequestBody Project project, BindingResult result) {
 
-        if (result.hasErrors()) {
-            Map<String, String> errorMap = new HashMap<>();
-
-            result.getFieldErrors().forEach(x -> {
-                errorMap.put(x.getField(), x.getDefaultMessage());
-            });
-
-            return new ResponseEntity<Map<String, String>>(errorMap, HttpStatus.BAD_REQUEST);
+        ResponseEntity<Map<String, String>> errorMap = mapValidationErrorService.MapValidationService(result);
+        if (errorMap != null) {
+            return errorMap;
         }
 
         Project project1 = projectService.saveOrUpdateProject(project);
