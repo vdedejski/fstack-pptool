@@ -8,14 +8,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ProjectService {
+    // Logic to save users.. makeing sure to update operation
 
     @Autowired
     private ProjectRepository projectRepository;
 
+
     public Project saveOrUpdateProject(Project project) {
-
-        // Logic to save users.. makeing sure to update operation
-
         try {
             project.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
             return projectRepository.save(project);
@@ -23,5 +22,15 @@ public class ProjectService {
             throw new ProjectIdException("Project ID '" + project.getProjectIdentifier().toUpperCase() + "' already exists");
 
         }
+    }
+
+    public Project findProjectByIdentifier(String projectId) {
+        Project project = projectRepository.findByProjectIdentifier(projectId.toUpperCase());
+
+        if (project == null) {
+            throw new ProjectIdException("Project ID' " + projectId.toUpperCase() + "' doesn't exsist");
+        }
+        
+        return project;
     }
 }
