@@ -49,10 +49,10 @@ public class ProjectController {
     }
 
     @DeleteMapping("/{projectId}")
-    public ResponseEntity<?> deleteProject(@PathVariable String projectId){
+    public ResponseEntity<?> deleteProject(@PathVariable String projectId) {
         projectService.deleteProjectByIdentifier(projectId);
 
-        return new ResponseEntity<String>("Project with id '" + projectId  + "' was deleted", HttpStatus.OK);
+        return new ResponseEntity<String>("Project with id '" + projectId + "' was deleted", HttpStatus.OK);
     }
 
 
