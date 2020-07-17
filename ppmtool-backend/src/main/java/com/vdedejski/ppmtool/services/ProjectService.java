@@ -30,7 +30,11 @@ public class ProjectService {
         if (project == null) {
             throw new ProjectIdException("Project ID' " + projectId.toUpperCase() + "' doesn't exsist");
         }
-        
+
         return project;
+    }
+
+    public Iterable<Project> findAllProjects() {
+        return projectRepository.findAll();
     }
 }
