@@ -34,12 +34,11 @@ public class Project {
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(updatable = false)
     private Date created_At;
-    
+
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date updated_At;
 
-    public Project() {
-    }
+    public Project() { }
 
     public Long getId() {
         return id;
