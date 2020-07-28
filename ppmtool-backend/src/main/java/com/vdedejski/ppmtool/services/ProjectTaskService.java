@@ -19,15 +19,33 @@ public class ProjectTaskService {
     private ProjectTaskRepository projectTaskRepository;
 
 
-    public ProjectTask addProjectTask(){
+    public ProjectTask addProjectTask(String projectIdentifier, ProjectTask projectTask) {
         //PT to be added to specific project, project != null ==> project exists (backlog exists)
+        Backlog backlog = backlogRepository.findByProjectIdentifier(projectIdentifier);
+
         //Set the backlog to the project task
+        projectTask.setBacklog(backlog);
+
         //Project seq = proj identifier-id_within_project
+        Integer backlogSequence = backlog.getPTSequence();
+
         //Update the Backlog Sequence
+        backlogSequence++;
+
+        //Add sequence to projectTask
+        projectTask.setProjectSequence(projectIdentifier + "-" + backlogSequence);
+        projectTask.setProjectIdentifier(projectIdentifier);
 
         //Set initial priority
+        if (projectTask.getPriority() == 0 || projectTask.getPriority() == null) {
+            projectTask.setPriority(3);
+        }
+
         //Set initial status when status is null
+        if (projectTask.getStatus().equals("") || projectTask.getStatus() == null){
+            projectTask.setStatus("TO_DO");
+        }
 
+        return projectTaskRepository.save(projectTask);
     }
-
 }
