@@ -1,5 +1,6 @@
 package com.vdedejski.ppmtool.web;
 
+import com.vdedejski.ppmtool.domain.Project;
 import com.vdedejski.ppmtool.domain.ProjectTask;
 import com.vdedejski.ppmtool.services.MapValidationErrorService;
 import com.vdedejski.ppmtool.services.ProjectTaskService;
@@ -46,5 +47,19 @@ public class BacklogContoller {
     public ResponseEntity<?> getProjectTask(@PathVariable String backlog_id, @PathVariable String pt_id) {
         ProjectTask projectTask = projectTaskService.findPTByProjectSequence(backlog_id, pt_id);
         return new ResponseEntity<ProjectTask>(projectTask, HttpStatus.OK);
+    }
+
+    @PatchMapping("/{backlog_id}/{pt_id}")
+    public ResponseEntity<?> updateProjectTask(@Valid @RequestBody ProjectTask projectTask, BindingResult result,
+                                               @PathVariable String backlog_id, @PathVariable String pt_id) {
+        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
+        if (errorMap != null) {
+            return errorMap;
+        } // Can be apstracted even more!! (refactor)
+
+        ProjectTask updatedTask = projectTaskService.updateByProjectSequence(projectTask, backlog_id, pt_id);
+
+        return new ResponseEntity<ProjectTask>(updatedTask, HttpStatus.OK);
+
     }
 }
