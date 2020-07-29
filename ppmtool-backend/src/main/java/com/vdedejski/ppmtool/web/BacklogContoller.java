@@ -14,7 +14,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/backlog")
-
 // Security problem on production [CROSSORIGIN]
 @CrossOrigin
 public class BacklogContoller {
